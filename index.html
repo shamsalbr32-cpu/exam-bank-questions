@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة بنك أسئلة - الصف الثالث الثانوي</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>📚 منصة بنك الأسئلة</h1>
+            <p class="subtitle">الصف الثالث الثانوي</p>
+        </div>
+    </header>
+
+    <section id="mainPage" class="page active">
+        <div class="container">
+            <div class="intro-section">
+                <h2>اختر التخصص الخاص بك</h2>
+                <p>ثم اختر المادة لبدء الإجابة على الأسئلة</p>
+            </div>
+
+            <div class="specializations">
+                <div class="spec-group">
+                    <h3>🔬 علمي علوم</h3>
+                    <div class="subjects-grid">
+                        <button class="subject-btn" onclick="openSubject('physics', 'الفيزياء', 'علمي علوم')">الفيزياء</button>
+                        <button class="subject-btn" onclick="openSubject('chemistry', 'الكيمياء', 'علمي علوم')">الكيمياء</button>
+                        <button class="subject-btn" onclick="openSubject('biology', 'الأحياء', 'علمي علوم')">الأحياء</button>
+                        <button class="subject-btn" onclick="openSubject('math', 'الرياضيات', 'علمي علوم')">الرياضيات</button>
+                    </div>
+                </div>
+
+                <div class="spec-group">
+                    <h3>🔢 علمي رياضة</h3>
+                    <div class="subjects-grid">
+                        <button class="subject-btn" onclick="openSubject('math2', 'الرياضيات البحتة', 'علمي رياضة')">الرياضيات البحتة</button>
+                        <button class="subject-btn" onclick="openSubject('physics2', 'الفيزياء', 'علمي رياضة')">الفيزياء</button>
+                        <button class="subject-btn" onclick="openSubject('chemistry2', 'الكيمياء', 'علمي رياضة')">الكيمياء</button>
+                    </div>
+                </div>
+
+                <div class="spec-group">
+                    <h3>📖 أدبي</h3>
+                    <div class="subjects-grid">
+                        <button class="subject-btn" onclick="openSubject('arabic', 'اللغة العربية', 'أدبي')">اللغة العربية</button>
+                        <button class="subject-btn" onclick="openSubject('english', 'اللغة الإنجليزية', 'أدبي')">اللغة الإنجليزية</button>
+                        <button class="subject-btn" onclick="openSubject('history', 'التاريخ', 'أدبي')">التاريخ</button>
+                        <button class="subject-btn" onclick="openSubject('geography', 'الجغرافيا', 'أدبي')">الجغرافيا</button>
+                        <button class="subject-btn" onclick="openSubject('philosophy', 'الفلسفة والمنطق', 'أدبي')">الفلسفة والمنطق</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="subjectPage" class="page">
+        <div class="container">
+            <button class="back-btn" onclick="goBack()">← العودة للرئيسية</button>
+            
+            <div class="subject-header">
+                <h2 id="subjectTitle"></h2>
+                <p id="subjectSpec" class="subject-spec"></p>
+            </div>
+
+            <div class="search-filter">
+                <input type="text" id="searchInput" placeholder="ابحث عن سؤال..." onkeyup="filterQuestions()">
+                <select id="unitFilter" onchange="filterQuestions()">
+                    <option value="">جميع الوحدات</option>
+                </select>
+            </div>
+
+            <div class="add-question-section">
+                <h3>➕ إضافة سؤال جديد</h3>
+                <form id="questionForm" onsubmit="addQuestion(event)">
+                    <div class="form-group">
+                        <label>الوحدة:</label>
+                        <input type="text" id="unitInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label>السؤال:</label>
+                        <textarea id="questionInput" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>الخيار أ:</label>
+                        <input type="text" id="optionA" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الخيار ب:</label>
+                        <input type="text" id="optionB" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الخيار ج:</label>
+                        <input type="text" id="optionC" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الخيار د:</label>
+                        <input type="text" id="optionD" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الإجابة الصحيحة:</label>
+                        <select id="correctAnswer" required>
+                            <option value="">اختر الإجابة الصحيحة</option>
+                            <option value="A">أ</option>
+                            <option value="B">ب</option>
+                            <option value="C">ج</option>
+                            <option value="D">د</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">إضافة السؤال</button>
+                </form>
+            </div>
+
+            <div class="questions-section">
+                <h3>📋 الأسئلة (<span id="questionCount">0</span>)</h3>
+                <div id="questionsList" class="questions-list"></div>
+                <p id="noQuestions" class="no-questions">لا توجد أسئلة حالياً. أضف سؤالاً جديداً!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>منصة بنك أسئلة متقدمة للصف الثالث الثانوي © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
